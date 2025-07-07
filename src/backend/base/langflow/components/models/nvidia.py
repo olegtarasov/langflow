@@ -15,24 +15,25 @@ class NVIDIAModelComponent(LCModelComponent):
     display_name = "NVIDIA"
     description = "Generates text using NVIDIA LLMs."
     icon = "NVIDIA"
+    all_models = []
 
-    try:
-        import warnings
-
-        # Suppresses repeated warnings about NIM key in langchain_nvidia_ai_endpoints==0.3.8
-        warnings.filterwarnings("ignore", category=UserWarning, module="langchain_nvidia_ai_endpoints._common")
-        from langchain_nvidia_ai_endpoints import ChatNVIDIA
-
-        all_models = ChatNVIDIA().get_available_models()
-    except ImportError as e:
-        msg = "Please install langchain-nvidia-ai-endpoints to use the NVIDIA model."
-        raise ImportError(msg) from e
-    except (ConnectionError, MaxRetryError, NameResolutionError):
-        logger.warning(
-            "Failed to connect to NVIDIA API. Model list may be unavailable."
-            " Please check your internet connection and API credentials."
-        )
-        all_models = []
+    # try:
+    #     import warnings
+    #
+    #     # Suppresses repeated warnings about NIM key in langchain_nvidia_ai_endpoints==0.3.8
+    #     warnings.filterwarnings("ignore", category=UserWarning, module="langchain_nvidia_ai_endpoints._common")
+    #     from langchain_nvidia_ai_endpoints import ChatNVIDIA
+    #
+    #     all_models = ChatNVIDIA().get_available_models()
+    # except ImportError as e:
+    #     msg = "Please install langchain-nvidia-ai-endpoints to use the NVIDIA model."
+    #     raise ImportError(msg) from e
+    # except (ConnectionError, MaxRetryError, NameResolutionError):
+    #     logger.warning(
+    #         "Failed to connect to NVIDIA API. Model list may be unavailable."
+    #         " Please check your internet connection and API credentials."
+    #     )
+    #     all_models = []
 
     inputs = [
         *LCModelComponent._base_inputs,
