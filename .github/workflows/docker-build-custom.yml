@@ -243,16 +243,16 @@ jobs:
     needs: [build, get-version]
     strategy:
       matrix:
-        component: [docker-backend, docker-frontend, ghcr-backend, ghcr-frontend]
+        component: [ghcr-backend, ghcr-frontend]
         include:
           - component: ghcr-backend
             dockerfile: ./docker/build_and_push_backend.Dockerfile
-            tags: ghcr.io/langflow-ai/langflow-backend:${{ needs.get-version.outputs.version }},ghcr.io/langflow-ai/langflow-backend:latest
-            langflow_image: ghcr.io/langflow-ai/langflow:${{ needs.get-version.outputs.version }}
+            tags: ghcr.io/olegtarasov/langflow-backend:${{ needs.get-version.outputs.version }},ghcr.io/olegtarasov/langflow-backend:latest
+            langflow_image: ghcr.io/olegtarasov/langflow:${{ needs.get-version.outputs.version }}
           - component: ghcr-frontend
             dockerfile: ./docker/frontend/build_and_push_frontend.Dockerfile
-            tags: ghcr.io/langflow-ai/langflow-frontend:${{ needs.get-version.outputs.version }},ghcr.io/langflow-ai/langflow-frontend:latest
-            langflow_image: ghcr.io/langflow-ai/langflow:${{ needs.get-version.outputs.version }}
+            tags: ghcr.io/olegtarasov/langflow-frontend:${{ needs.get-version.outputs.version }},ghcr.io/olegtarasov/langflow-frontend:latest
+            langflow_image: ghcr.io/olegtarasov/langflow:${{ needs.get-version.outputs.version }}
     steps:
       - name: Check out the code at a specific ref
         uses: actions/checkout@v4
